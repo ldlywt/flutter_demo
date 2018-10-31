@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_navigationbar/MethodOne.dart';
-import 'package:flutter_navigationbar/MethodTwo.dart';
+import 'package:flutter_navigationbar/AppOne.dart';
+import 'package:flutter_navigationbar/AppThree.dart';
+import 'package:flutter_navigationbar/AppTwo.dart';
 
-void main() => runApp(new AppTwo());
+void main() => runApp(new AppThree());
 
 
 

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_navigationbar/pages/FirstPage.dart';
 import 'package:flutter_navigationbar/pages/SecondPage.dart';
@@ -30,6 +31,7 @@ class _HomeState extends State<Home> {
 //        centerTitle: true,
 //      ),
       body: _children[_currentIndex],
+//      CupertinoTabBar 是IOS分格
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
         onTap: onTabTapped,
@@ -43,6 +45,7 @@ class _HomeState extends State<Home> {
         ],
       ),
     );
+
   }
 
   void onTabTapped(int index) {
