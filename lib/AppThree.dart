@@ -16,6 +16,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   int _index = 0;
   List<Widget> list = new List();
+  Color _tabColor = Colors.white;
 
   @override
   void initState() {
@@ -23,6 +24,7 @@ class _HomeState extends State<Home> {
     list..add(FirstPage())..add(SecondPage())..add(ThirdPage());
   }
 
+  ///BottomAppBar: 完全可以自定义
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
@@ -41,32 +43,40 @@ class _HomeState extends State<Home> {
         bottomNavigationBar: BottomAppBar(
           color: Colors.lightBlue,
           shape: CircularNotchedRectangle(),
-          child: Row(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: <Widget>[
-              IconButton(
-                icon: Icon(Icons.near_me),
-                color: Colors.white,
-                onPressed: () {
-                  setState(() {
-                    _index = 0;
-                  });
-                },
-              ),
-              IconButton(
-                icon: Icon(Icons.edit_location),
-                color: Colors.white,
-                onPressed: () {
-                  setState(() {
-                    _index = 1;
-                  });
-                },
-              ),
-            ],
-          ),
+          child: tabs(),
         ),
       ),
+    );
+  }
+
+  Row tabs() {
+    return Row(
+      mainAxisSize: MainAxisSize.max,
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: <Widget>[
+        new Container(
+          child: IconButton(
+            icon: Icon(Icons.near_me),
+            color: _tabColor,
+            onPressed: () {
+              setState(() {
+                _tabColor = Colors.orangeAccent;
+                _index = 0;
+              });
+            },
+          ),
+        ),
+        IconButton(
+          icon: Icon(Icons.edit_location),
+          color: Colors.white,
+          onPressed: () {
+            setState(() {
+              _tabColor = Colors.white;
+              _index = 1;
+            });
+          },
+        ),
+      ],
     );
   }
 }

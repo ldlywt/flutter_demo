@@ -29,6 +29,7 @@ class MyHomePageState extends State<MyHomePage>
     super.dispose();
   }
 
+  /// 相当于TabLayout 和 ViewPage
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -39,11 +40,15 @@ class MyHomePageState extends State<MyHomePage>
       ]),
       bottomNavigationBar: new Material(
         color: Colors.blue,
-        child: new TabBar(controller: controller, tabs: <Tab>[
-          new Tab(text: "首页", icon: new Icon(Icons.home)),
-          new Tab(text: "列表", icon: new Icon(Icons.list)),
-          new Tab(text: "信息", icon: new Icon(Icons.message)),
-        ]),
+        child: new TabBar(
+          controller: controller,
+          tabs: <Tab>[
+            new Tab(text: "首页", icon: new Icon(Icons.home)),
+            new Tab(text: "列表", icon: new Icon(Icons.list)),
+            new Tab(text: "信息", icon: new Icon(Icons.message)),
+          ],
+          indicatorWeight: 0.1,
+        ),
       ),
     );
   }
