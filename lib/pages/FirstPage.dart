@@ -1,7 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class FirstPage extends StatefulWidget {
   @override
@@ -9,10 +11,10 @@ class FirstPage extends StatefulWidget {
 }
 
 class FirstPageState extends State<FirstPage> {
-  String _content = "xxxxxxxxx";
+  String _content = "我是网络请求内容";
   var url_1 = "http://www.weather.com.cn/data/sk/101110101.html"; //西安
-  var url_2 = "http://www.weather.com.cn/data/sk/101010100.html"; //北京
-  var url_3 = "http://www.weather.com.cn/data/sk/101280601.html"; //深圳
+  var url_2 = "http://mobile.weather.com.cn/data/sk/101010100.html?_=1381891661455"; //北京
+  var url_3 = "http://mobile.weather.com.cn/data/sk/101280601.html?=1381891661455"; //深圳
 
   @override
   Widget build(BuildContext context) {
@@ -46,24 +48,31 @@ class FirstPageState extends State<FirstPage> {
   }
 
   void getNet_1() async {
-    debugPrint("原生的网络请求方式");
-    var result;
+    debugPrint("原生的网络请求方式--->get");
     var client = new HttpClient();
     var request = await client.getUrl(Uri.parse(url_1));
     var response = await request.close();
     if (response.statusCode == HttpStatus.ok) {
-      result = await response.transform(Utf8Decoder()).join();
+      _content = await response.transform(Utf8Decoder()).join();
     }
-    setState(() {
-      _content = result;
-    });
+    setState(() {});
   }
 
-  void getNet_2() {
-    debugPrint("  我点击了  Padding  下的  RaisedButton");
+  //现在好像不用导入依赖了
+  void getNet_2() async {
+    debugPrint("使用http网络请求--->get");
+    var client = http.Client();
+    http.Response response = await client.get(url_2);
+    _content = response.body;
+    setState(() {});
   }
 
-  void getNet_3() {
-    debugPrint("  我点击了  Padding  下的  RaisedButton");
+  //https://github.com/flutterchina/dio/blob/flutter/README-ZH.md
+  void getNet_3() async {
+    debugPrint("使用第三方库Dio的请求--->get");
+    Dio dio = new Dio();
+    var response = await dio.get(url_3);
+    _content = response.data.toString();
+    setState(() {});
   }
 }
