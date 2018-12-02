@@ -118,11 +118,7 @@ class FirstPageState extends State<FirstPage> {
 //    _content = response.data.toString();
     debugPrint(response.data);
     Weather weather = Weather.fromJson(json.decode(response.data.toString()));
-    _content = weather.skInfo.cityName +
-        "\n" +
-        weather.skInfo.temp +
-        "\n" +
-        weather.skInfo.wd;
+    _content = '城市：${weather.skInfo.cityName} \n温度：${weather.skInfo.temp}\n风向：${weather.skInfo.wd}';
     setState(() {});
   }
 

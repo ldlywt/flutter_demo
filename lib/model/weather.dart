@@ -1,3 +1,5 @@
+///https://javiercbk.github.io/json_to_dart/
+///自动生成bean对象
 class Weather {
   SkInfo skInfo;
 
