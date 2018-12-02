@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_navigationbar/model/weather.dart';
 import 'package:http/http.dart' as http;
 
 class FirstPage extends StatefulWidget {
@@ -28,19 +29,18 @@ class FirstPageState extends State<FirstPage> {
       ),
       body: new Center(
           child: Column(
-            children: <Widget>[
-              buildRow(getNet_1, "原生方式-GET", postNet_1, "原生方式-POST"),
-              buildRow(getNet_2_easy, "http方式-GET", postNet_2, "http方式-POST"),
-              buildRow(getNet_3, "dio方式-GET", postNet_3, "dio方式-POST"),
-              new Padding(
-                  padding: EdgeInsets.all(20.0), child: new Text(_content))
-            ],
-          )),
+        children: <Widget>[
+          buildRow(getNet_1, "原生方式-GET", postNet_1, "原生方式-POST"),
+          buildRow(getNet_2_easy, "http方式-GET", postNet_2, "http方式-POST"),
+          buildRow(getNet_3, "dio方式-GET", postNet_3, "dio方式-POST"),
+          new Padding(padding: EdgeInsets.all(20.0), child: new Text(_content))
+        ],
+      )),
     );
   }
 
-  Row buildRow(VoidCallback method1, String text1, VoidCallback method2,
-      String text2) {
+  Row buildRow(
+      VoidCallback method1, String text1, VoidCallback method2, String text2) {
     return new Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
@@ -89,9 +89,7 @@ class FirstPageState extends State<FirstPage> {
   }
 
   void getNet_2_easy() {
-    http.Client()
-        .get(url_2)
-        .then((http.Response response) {
+    http.Client().get(url_2).then((http.Response response) {
       _content = response.body;
     });
     setState(() {});
@@ -117,7 +115,14 @@ class FirstPageState extends State<FirstPage> {
   void getNet_3() async {
     Dio dio = new Dio();
     var response = await dio.get(url_3);
-    _content = response.data.toString();
+//    _content = response.data.toString();
+    debugPrint(response.data);
+    Weather weather = Weather.fromJson(json.decode(response.data.toString()));
+    _content = weather.skInfo.cityName +
+        "\n" +
+        weather.skInfo.temp +
+        "\n" +
+        weather.skInfo.wd;
     setState(() {});
   }
 
